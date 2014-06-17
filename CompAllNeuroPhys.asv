@@ -59,25 +59,21 @@ cd(caseLoc)
 setCheckFiles = cellstr(ls('*.mat'));
 
 % Check for multiple Tracks = 'Sets'
-if strcmp(setCheckFiles,'')
 
-    setChoose = questdlg('Choose Set','Set?','Set1','Set2','Set1');
-    
-    setLoc = strcat(pwd,'\',setChoose);
-    
-    cd(setLoc);
-    
-end
+setCheck = 1;
 
+while setCheck
+    if isempty(setCheckFiles)
+        dirfiles2 = dir;
+        setNames = {dirfiles2.name};
+        setNames = setNames(3:end);
+        
+        
 
 
 
 % Get mat file names : these are associated with depths
 depthFiles = cellstr(ls('*.mat'));
-
-
-
-
 
 for dfi = 1:length(depthFiles);
    load(depthFiles{dfi}) 
