@@ -1,5 +1,14 @@
 function Relabel_AO_Depth
 
+
+
+% To add
+% 1. Refine structure ; come up with generic sort name for depth
+% 2. Add mm distance
+% 3. Delete struct elements that are not relevant
+% 4. Add Function details
+
+
 if exist('Y:\','dir')
     AOLoc = 'Y:\AlphaOmegaMatlabData';
     cd(AOLoc)
@@ -36,16 +45,7 @@ for fdir = 1:length(foldernamesFinal)
            if strcmp(regexp(testFileA,'Target','match'),'Target')
                continue
            else
-               for depthFA = 1:length(depthFiles)
-                   curFname = depthFiles{depthFA};
-                   fileStuff = strsplit(curFname,'.');
-                   if strcmp(curFname(1),'-');
-                       newFname = strcat('BelowTarget_',fileStuff{1}(2:end),'.mat');
-                   else
-                       newFname = strcat('AboveTarget_',fileStuff{1},'.mat');
-                   end
-                   movefile(curFname,newFname);
-               end % End of Filename loop
+               rename_file(depthFiles)
            end % End of determine whether already done
         end % End of Date loop for Sets
         
@@ -53,21 +53,38 @@ for fdir = 1:length(foldernamesFinal)
         
         depthFilesA_1 = dir('*.mat');
         depthFiles = {depthFilesA_1.name};
+        
+        testFileA = depthFiles{1};
+        
         if strcmp(regexp(testFileA,'Target','match'),'Target')
             continue
         else
-            for depthFA = 1:length(depthFiles)
-                curFname = depthFiles{depthFA};
-                fileStuff = strsplit(curFname,'.');
-                if strcmp(curFname(1),'-');
-                    newFname = strcat('BelowTarget_',fileStuff{1}(2:end),'.mat');
-                else
-                    newFname = strcat('AboveTarget_',fileStuff{1},'.mat');
-                end
-                movefile(curFname,newFname);
-            end % End of Filename loop
+            rename_file(depthFiles)
         end % End of determine whether already done
         
     end % End of test for Sets
 
 end
+
+
+end % End of main function
+
+
+
+
+function rename_file(depthFiles)
+
+for depthFA = 1:length(depthFiles)
+    curFname = depthFiles{depthFA};
+    fileStuff = strsplit(curFname,'.');
+    if strcmp(curFname(1),'-');
+        newFname = strcat('BelowTarget_',fileStuff{1}(2:end),'.mat');
+    else
+        newFname = strcat('AboveTarget_',fileStuff{1},'.mat');
+    end
+    movefile(curFname,newFname);
+end
+
+end
+
+
