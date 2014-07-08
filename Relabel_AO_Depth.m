@@ -54,7 +54,7 @@ for fdir = 1:length(foldernamesFinal)
         
         testFileA = depthFiles{1};
         
-        if strcmp(regexp(testFileA,'Target','match'),'Target')
+        if strcmp(regexp(testFileA,'Trgt','match'),'Trgt')
             continue
         else
             rename_file(depthFiles)
